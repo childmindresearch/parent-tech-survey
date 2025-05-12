@@ -35,3 +35,18 @@ def get_embedding(input: str) -> str|None:
         return response.data[0].embedding
     else:
         return None
+    
+def get_reduced_embeddings(input: list[str], dimensions: int) -> list[list[float]]:
+    """
+    Get the embedding for a given text string using OpenAI's API.
+    """
+    if isinstance(input, str):
+        input = clean_text(input)
+        response = client.embeddings.create(
+            input=input,
+            model="text-embedding-3-small",
+            dimensions=dimensions,
+        )
+        return response.data[0].embedding
+    else:
+        return None
